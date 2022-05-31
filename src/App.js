@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import Router from "./Router"
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom"
+import Main from "./components/Main"
 
 function App() {
+  const [token, setToken] = useState('');
+  const navigate = useNavigate();
+
+  const checkLogin = () => {
+    let _token = localStorage.getItem('token');
+    if (_token) {
+      setToken(_token);
+    } else {
+      navigate('/dang-nhap');
+    }
+  }
+
+  useEffect(checkLogin, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router/>
     </div>
   );
 }
