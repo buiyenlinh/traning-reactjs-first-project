@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react'
 import logo from "../assets/favicon.png"
+import { Spinner } from 'react-bootstrap'
 import { useNavigate } from "react-router-dom"
 function Login () {
   const [user, setUser] = useState({username: '', password: ''});
   const [error, setError] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate(); 
 
   const handleLogin = (e) => {
@@ -49,6 +51,7 @@ function Login () {
   }
 
   const login = () => {
+    setIsLoading(true);
     axios.post('https://qlsc.maysoft.io/server/api/auth/login', user)
     .then(response => {
       if (response.data.status) {
@@ -60,6 +63,8 @@ function Login () {
       }
     }).catch(err => {
       console.log(err);
+    }).finally(() => {
+      setIsLoading(false);
     })
   }
 
@@ -72,21 +77,33 @@ function Login () {
 
   return (
     <div className='login'>
-      <img src={logo} />
-      <form onSubmit={handleLogin} >
-        <div className='form-group mb-2'>
-          <label><b>Tên đăng nhập</b></label>
-          <input type="text" onChange={e => checkUsername(e.target.value)} value={user.username} name="username" className='form-control'/>
-          <div className="text-danger error">{error.username}</div>
+      <div className='login-inner'>
+        <div className='logo'>
+          <img src={logo} />
         </div>
-        <div className='form-group mb-2'>
-          <label><b>Mật khẩu</b></label>
-          <input type="password" onChange={e => checkPassword(e.target.value)} value={user.password} name="password" className='form-control' />
-          <div className="text-danger error">{error.password}</div>
-        </div>
-        <button type="submit" className='btn btn-primary w-100'>Đăng nhập</button>
-        <div className='error'>{error.error}</div>
-      </form>
+        <form onSubmit={handleLogin} >
+          <div className='form-group mb-2'>
+            <label><b>Tên đăng nhập</b></label>
+            <input type="text" onChange={e => checkUsername(e.target.value)} value={user.username} name="username" className='form-control'/>
+            <div className="text-danger error">{error.username}</div>
+          </div>
+          <div className='form-group mb-2'>
+            <label><b>Mật khẩu</b></label>
+            <input type="password" onChange={e => checkPassword(e.target.value)} value={user.password} name="password" className='form-control' />
+            <div className="text-danger error">{error.password}</div>
+          </div>
+          <button type="submit" className='btn btn-primary w-100'>Đăng nhập</button>
+          <div className='error text-danger' style={{marginTop: 15}} >{error.error}</div>
+        </form>
+      </div>
+      {
+        isLoading
+        ? 
+          <div className='loading'>
+            <Spinner animation="border" variant="primary" />
+          </div>
+        : null
+      }
     </div>
   )
 }

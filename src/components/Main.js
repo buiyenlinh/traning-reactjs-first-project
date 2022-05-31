@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Outlet, NavLink, useNavigate } from "react-router-dom"
 import logo from "../assets/favicon.png"
 
@@ -19,7 +19,7 @@ function Main() {
             <img src={logo} />
             <ul className='menu'>
               <li>
-                <NavLink to="/danh-sach" style={({ isActive }) => isActive ? activeStyle : undefined}>Danh sách</NavLink>
+                <NavLink to="/" style={({ isActive }) => isActive ? activeStyle : undefined}>Danh sách</NavLink>
               </li>
               <li>
                 <NavLink to="/theo-doi" style={({ isActive }) => isActive ? activeStyle : undefined}>Theo dõi</NavLink>

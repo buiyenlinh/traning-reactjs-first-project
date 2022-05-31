@@ -26,6 +26,14 @@ code {
   min-height: 100vh;
 }
 
+.login .login-inner {
+  width: 350px;
+}
+
+.login .login-inner .logo{
+  text-align: center;
+}
+
 .login img {
   width: 140px;
 }
@@ -166,12 +174,21 @@ code {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background: rgba(0, 0, 0, 0.3); */
 }
 
 @media screen and (max-width: 768px) {
   .container {
     width: 100% !important;
     max-width: 100% !important;
+  }
+
+  .login .login-inner {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 490px) {
+  .login .login-inner {
+    width: 80%;
   }
 }

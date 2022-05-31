@@ -18,7 +18,7 @@ function Router() {
       path: '/',
       element: <Main />,
       children: [
-        { path: "/danh-sach", element: <List /> },
+        { path: "/", element: <List /> },
         { path: "/theo-doi", element: <Follow /> },
         { path: "/thong-bao", element: <Notification /> },
         { path: "/bieu-do", element: <Chart /> },
